@@ -1,6 +1,6 @@
 SDK location: C:\Users\Annab\AppData\Local\Android\Sdk
 
-JDK location:C:\Program Files\Android\Android Studio\jre
+JDK location: C:\Program Files\Android\Android Studio\jre
 
 NDK location: C:\Users\Annab\AppData\Local\Android\Sdk\ndk-bundle
 
