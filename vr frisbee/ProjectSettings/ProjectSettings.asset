@@ -4,7 +4,15 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 15
+<<<<<<< HEAD
   productGUID: 2fb55d71477f6ab4caccdcd1257d72a9
+=======
+<<<<<<< HEAD
+  productGUID: c3b5baed7c613be40b0bdcd853feea6a
+=======
+  productGUID: 4263325904faa5a40a5057216c918914
+>>>>>>> 367b5fed1bec32ffa24e4e5cd50f0ce58f67d421
+>>>>>>> 3a34f180c3a60fa099987e79688e39e6cc1c76c8
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -152,7 +160,20 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+<<<<<<< HEAD
     Android: com.oculus.UnitySample
+=======
+<<<<<<< HEAD
+    Android: com.oculus.UnitySample
+=======
+<<<<<<< HEAD
+    Android: com.huyha.frisbee
+=======
+    Android: com.oculus.UnitySample
+>>>>>>> e7a7a56be2eda2811058428a97e034e1eab2bcc4
+>>>>>>> 367b5fed1bec32ffa24e4e5cd50f0ce58f67d421
+    Standalone: com.oculus.UnitySample
+>>>>>>> 3a34f180c3a60fa099987e79688e39e6cc1c76c8
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
@@ -262,9 +283,37 @@ PlayerSettings:
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []
   m_BuildTargetVRSettings:
+<<<<<<< HEAD
   - m_BuildTarget: Android
     m_Enabled: 1
     m_Devices: []
+=======
+  - m_BuildTarget: Standalone
+    m_Enabled: 1
+    m_Devices:
+    - Oculus
+    - OpenVR
+<<<<<<< HEAD
+  - m_BuildTarget: Android
+    m_Enabled: 1
+    m_Devices: []
+=======
+<<<<<<< HEAD
+  - m_BuildTarget: Android
+    m_Enabled: 1
+    m_Devices:
+    - Oculus
+=======
+<<<<<<< HEAD
+  - m_BuildTarget: Android
+    m_Enabled: 1
+    m_Devices: []
+=======
+>>>>>>> b304d120778ff436850ec021e22e291b639d285a
+>>>>>>> df473f5f6352b1a8bad7783eefe4bf887b400c0e
+>>>>>>> e7a7a56be2eda2811058428a97e034e1eab2bcc4
+>>>>>>> 367b5fed1bec32ffa24e4e5cd50f0ce58f67d421
+>>>>>>> 3a34f180c3a60fa099987e79688e39e6cc1c76c8
   m_BuildTargetEnableVuforiaSettings: []
   openGLRequireES31: 0
   openGLRequireES31AEP: 0
