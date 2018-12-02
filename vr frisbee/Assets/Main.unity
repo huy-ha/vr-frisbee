@@ -129,9 +129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588439a3811b7cf4d9651ca07c8675e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frisbee: {fileID: 1380082880}
+  thisFrisbee: {fileID: 1380082880}
   thisHand: {fileID: 1793230816}
   elbow: {fileID: 1521915955}
+  thrust: 14
 --- !u!4 &261125272 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a,
@@ -187,6 +188,10 @@ Prefab:
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
       propertyPath: m_LocalScale.z
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
@@ -384,6 +389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aef018a086684643947188957f3c977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  airResistance: 0.002
+  lift: 1.4
 --- !u!65 &1380082887
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -625,6 +632,10 @@ Prefab:
     - target: {fileID: 400000, guid: d1adf8d5171b2e14a83f5f678ec63ee1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d1adf8d5171b2e14a83f5f678ec63ee1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1adf8d5171b2e14a83f5f678ec63ee1, type: 3}
