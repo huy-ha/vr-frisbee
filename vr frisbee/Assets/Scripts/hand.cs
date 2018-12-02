@@ -77,7 +77,7 @@ public class hand : MonoBehaviour {
     {
         triggerPressed = false;
         holding = false;
-        thisFrisbee.GetComponent<frisbee>().Fly(new Vector3(0,0,2) * thrust);
+        thisFrisbee.GetComponent<frisbee>().Fly(((thisHand.transform.position) - (elbow.transform.position)) * thrust);
         thisFrisbee.GetComponent<Rigidbody>().useGravity = true;
     }
 
