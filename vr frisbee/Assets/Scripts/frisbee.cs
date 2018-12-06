@@ -9,14 +9,14 @@ public class frisbee : MonoBehaviour {
     public float airResistance;
     public float lift;
     // Use this for initialization
-    void Start () {
+    void Start() {
         rb = GetComponent<Rigidbody>();
         velocity = rb.velocity;
-        flying = false;
+        flying = false; 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         velocity = rb.velocity;
         if (flying)
         {
@@ -28,11 +28,13 @@ public class frisbee : MonoBehaviour {
             {
                 rb.velocity -= airResistance * velocity.sqrMagnitude * Time.deltaTime * velocity; // air resistance
             }
+            //Debug.Log("force to add is " + Vector3.up * Time.deltaTime * velocity.sqrMagnitude * lift);
+            //Debug.Log("velocity is " + velocity.ToString());
             rb.AddForce(Vector3.up * Time.deltaTime * velocity.sqrMagnitude * lift);  //lift from glide
 
             handleTilt();
         }
-	}
+    }
 
     void handleTilt()
     {
@@ -45,6 +47,11 @@ public class frisbee : MonoBehaviour {
         flying = val;
     }
 
+    public bool getFly()
+    {
+        return flying;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         //if collide with ground then stop flying
@@ -55,6 +62,7 @@ public class frisbee : MonoBehaviour {
     {
         //Debug.Log("releaseVelocity " + releaseVelocity.x + " " + releaseVelocity.y + " " + releaseVelocity.z);
         flying = true;
+        rb.useGravity = true;
         GetComponent<Rigidbody>().velocity = releaseVelocity;
     }
 }

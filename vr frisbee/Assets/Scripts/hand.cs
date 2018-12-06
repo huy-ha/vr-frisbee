@@ -24,11 +24,10 @@ public class hand : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        //transform.rotation *= Quaternion.Euler(0, Time.deltaTime*100, 0) ;
-        remoteRot = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTrackedRemote);
         if (triggerPressed && (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger) || Input.GetButtonUp("Jump")))
         {
-            Throw1();
+            if (holding) Throw1();
+            else thisFrisbee.GetComponent<Rigidbody>().useGravity = true;
         }
         else if(!triggerPressed && (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)|| Input.GetButtonDown("Jump")))
         {
@@ -44,7 +43,7 @@ public class hand : MonoBehaviour {
         //frisbee floating to hand
         if (triggerPressed && distance != 0)
         {
-            thisFrisbee.GetComponent<Rigidbody>().useGravity = false;
+            thisFrisbee.GetComponent<Rigidbody>().useGravity = true;
             if (distance < 0.1)
             {
                 holding = true;
@@ -53,7 +52,7 @@ public class hand : MonoBehaviour {
             {
                 thisFrisbee.transform.position += 0.2f * (thisHand.transform.position - thisFrisbee.transform.position);
                 rot = thisFrisbee.transform.rotation;
-                rot.eulerAngles += 0.2f * (thisHand.transform.rotation.eulerAngles + new Vector3(90, 0, 0) - thisFrisbee.transform.rotation.eulerAngles);
+                rot.eulerAngles += 0.2f * (thisHand.transform.rotation.eulerAngles + new Vector3(90, 180, 0) - thisFrisbee.transform.rotation.eulerAngles);
                 thisFrisbee.transform.rotation = rot;
             }
         }
@@ -62,7 +61,7 @@ public class hand : MonoBehaviour {
         //rot = elbow.transform.rotation;
         //rot.eulerAngles += 0.7f * (remoteRot.eulerAngles - rot.eulerAngles);
         //elbow.transform.rotation = rot;
-        elbow.transform.localRotation = remoteRot;
+        elbow.transform.localRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTrackedRemote);
 
         if (holding)
         {
@@ -77,8 +76,9 @@ public class hand : MonoBehaviour {
     {
         triggerPressed = false;
         holding = false;
-        thisFrisbee.GetComponent<frisbee>().Fly(((thisHand.transform.position) - (elbow.transform.position)) * thrust);
         thisFrisbee.GetComponent<Rigidbody>().useGravity = true;
+        if (thisFrisbee.GetComponent<frisbee>().getFly()) Debug.Log("frisbee is using gravity");
+        thisFrisbee.GetComponent<frisbee>().Fly(((thisHand.transform.position) - (elbow.transform.position)) * thrust);
     }
 
     //TODO (actual throw)
