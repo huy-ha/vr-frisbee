@@ -6,8 +6,8 @@ public class frisbee : MonoBehaviour {
     Vector3 velocity;
     Rigidbody rb;
     bool flying;
-    public float airResistance;
-    public float lift;
+    public float airResistance; //0.005
+    public float lift; //6
     // Use this for initialization
     void Start() {
         rb = GetComponent<Rigidbody>();
@@ -20,18 +20,27 @@ public class frisbee : MonoBehaviour {
         velocity = rb.velocity;
         if (flying)
         {
-            if ((airResistance * velocity.sqrMagnitude * Time.deltaTime * velocity).magnitude > 0.95 * velocity.magnitude)
-            {
-                rb.velocity *= 0.95f;
-            }
-            else
-            {
-                rb.velocity -= airResistance * velocity.sqrMagnitude * Time.deltaTime * velocity; // air resistance
-            }
-            //Debug.Log("force to add is " + Vector3.up * Time.deltaTime * velocity.sqrMagnitude * lift);
-            //Debug.Log("velocity is " + velocity.ToString());
-            rb.AddForce(Vector3.up * Time.deltaTime * velocity.sqrMagnitude * lift);  //lift from glide
+            handleFlight();
+        }
+    }
 
+    void handleFlight()
+    {
+        if ((airResistance * velocity.sqrMagnitude * Time.deltaTime * velocity).magnitude > 0.95 * velocity.magnitude)
+        {
+            rb.velocity *= 0.95f;
+        }
+        else
+        {
+            rb.velocity -= airResistance * velocity.sqrMagnitude * Time.deltaTime * velocity; // air resistance
+        }
+        //Debug.Log("force to add is " + Vector3.up * Time.deltaTime * velocity.sqrMagnitude * lift);
+        //Debug.Log("velocity is " + velocity.ToString());
+        rb.AddForce(Vector3.up * Time.deltaTime * velocity.sqrMagnitude * lift);  //lift from glide
+
+        if (velocity.y < 0)
+        {
+            Debug.Log("frisbee's velocity is " + velocity.ToString());
             handleTilt();
         }
     }

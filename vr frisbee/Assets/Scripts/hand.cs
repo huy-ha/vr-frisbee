@@ -14,7 +14,7 @@ public class hand : MonoBehaviour {
 
     //for determining throwing direction and velocity
     Vector3 prevRemotePos;
-    public float thrust;
+    public float thrust; //14
 
 	// Use this for initialization
 	void Start () {
@@ -23,19 +23,20 @@ public class hand : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         if (triggerPressed && (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger) || Input.GetButtonUp("Jump")))
         {
             if (holding) Throw1();
             else thisFrisbee.GetComponent<Rigidbody>().useGravity = true;
         }
-        else if(!triggerPressed && (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)|| Input.GetButtonDown("Jump")))
+        else if (!triggerPressed && (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) || Input.GetButtonDown("Jump")))
         {
             //Frisbee Picked up
             thisFrisbee.GetComponent<frisbee>().setFly(false);
             triggerPressed = true;
             thisFrisbee.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            thisFrisbee.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; 
+            thisFrisbee.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
 
         distance = Vector3.Distance(thisHand.transform.position, thisFrisbee.transform.position);
@@ -67,7 +68,7 @@ public class hand : MonoBehaviour {
         {
             thisFrisbee.transform.position = thisHand.transform.position;
             thisFrisbee.transform.rotation = thisHand.transform.rotation;
-            thisFrisbee.transform.Rotate(new Vector3(90,0,0));
+            thisFrisbee.transform.Rotate(new Vector3(90, 0, 0));
         }
         prevRemotePos = thisHand.transform.position;
     }
