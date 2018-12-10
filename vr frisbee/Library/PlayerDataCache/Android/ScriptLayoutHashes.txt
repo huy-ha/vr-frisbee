@@ -306,13 +306,13 @@ e1ea12ca952c81d81a9a21fdf34446ed UnityEngine.HoloLens.dll:UnityEngine.EventSyste
 98d69a140ec0084cde3b6a5e09aea295 UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 dfd33ff9ae3ce8d7ca1f22b475ec2387 UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 aac9c55ae7ba4b95b852a7d9c191acd1 Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
-f3b4ae557853682b5a9a9a5dd4bf8add Assembly-CSharp.dll:.Thrower
+14880db304a62305e17afec4bae85260 Assembly-CSharp.dll:.Thrower
 989917e37ada2039978473ea5fc49e70 Oculus.VR.dll:UnityEngine.EventSystems.OVRPhysicsRaycaster
 0a006f3734181ba8b26758f0866152c0 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 e29b82c8bf28b8e4fdcc14242aa8879d Oculus.VR.dll:.OVRGridCube
 18d9fcac3b31a2c28026d4aee79792c6 Assembly-CSharp.dll:.OvrAvatarSkinnedMeshRenderComponent
 bf9092984e391e854436c93547ae117f Oculus.VR.dll:.OVRLint
-dd81edf3ea21f61bab5880211b35a20c Assembly-CSharp.dll:.Dog
+4b6a612319f350acb2717c9442f39817 Assembly-CSharp.dll:.Dog
 09dadde032e8d1d4cd2252ace4027c21 Assembly-CSharp.dll:.OVRMicInput
 d1e8ed93b5353b4bdbd86d474ab618b5 Oculus.VR.dll:UnityEngine.EventSystems.OVRInputModule
 e7264fa9ee3a8a07bb0d50abc40c07a0 Oculus.VR.dll:.OVRGrabber

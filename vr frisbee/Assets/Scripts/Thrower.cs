@@ -7,6 +7,7 @@ public class Thrower : MonoBehaviour {
     public GameObject thisFrisbee;
     public GameObject thisHand;
     public GameObject elbow;
+    public GameObject dog;
     private OVRCameraRig head;
     private float shoulderWidth;
 
@@ -18,6 +19,9 @@ public class Thrower : MonoBehaviour {
     //LinkedList to help with throwing
     private LinkedList<Vector3> positions;
     private LinkedListNode<Vector3> middle;
+
+    //interface for dog to interact with
+    Vector3 sittingSpot;
 
     //for debugging
     bool debugging;
@@ -32,20 +36,36 @@ public class Thrower : MonoBehaviour {
         shoulderWidth = 0.32f;
         strokeLength = 30;
         strokeCutoff = 10;
-        thrust = 2000f;
+        thrust = 2500f;
         debugging = false;
+        sittingSpot = transform.position + Camera.main.transform.rotation * Vector3.forward;
     }
 
     // Update is called once per frame
     void Update() {
+        logger.text = "";
+        log("holding frisbee " + holdingFrisbee);
+        log("triggerPressed " + triggerPressed);
+        log("triggerReleased " + triggerReleased);
+
         updateController();
-        updateBools(); //check all booleans
+        triggerReleased = 
+            OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger) ||
+            Input.GetButtonUp("Jump");
+        triggerPressed = triggerReleased ? false :
+            (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) ||
+            Input.GetButton("Jump"));
+
         updatePositionsList();
-        if (triggerPressed)
+        if (triggerPressed && Vector3.Distance(thisFrisbee.transform.position, transform.position) < 2.5)
         {
+            dog.GetComponent<Dog>().letGo();
+            log("taking frisbee");
             takeFrisbee();
-        } else if (triggerReleased)
+            
+        } else if (triggerReleased && holdingFrisbee)
         {
+            log("Throwing Frisbee!");
             ThrowFrisbee();
         }
         
@@ -74,6 +94,11 @@ public class Thrower : MonoBehaviour {
         }
     }
 
+    public Vector3 getSittingSpot()
+    {
+        return sittingSpot;
+    }
+
     //helper function for updatePositionList
     LinkedListNode<Vector3> getMiddle()
     {
@@ -92,12 +117,11 @@ public class Thrower : MonoBehaviour {
         {
             elbow.transform.localRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTrackedRemote);
             //turn entire OVRrig, so hands also follow
+            //TODO try making elbow a child of camera main
             elbow.transform.localPosition = new Vector3(
                 shoulderWidth * Mathf.Cos(Mathf.PI * Camera.main.transform.rotation.eulerAngles.y/180),
                 elbow.transform.localPosition.y,
                 shoulderWidth * Mathf.Sin(Mathf.PI * Camera.main.transform.rotation.eulerAngles.y/180));
-            log("camera" + Camera.main.transform.rotation.eulerAngles.y.ToString() +
-                "\nelbow localPosition" + elbow.transform.localPosition.ToString());
             //transform.rotation = Quaternion.Euler(new Vector3(0, Camera.main.transform.rotation.eulerAngles.y,0));
         }
         else
@@ -125,30 +149,34 @@ public class Thrower : MonoBehaviour {
     //if frisbee is at hand, then let frisbee follow hand's position
     void takeFrisbee()
     {
-        Rigidbody rb = thisFrisbee.GetComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.angularVelocity = Vector3.zero;
-        rb.velocity = Vector3.zero;
-
+        Rigidbody f = thisFrisbee.GetComponent<Rigidbody>();
+        f.useGravity = false;
+        f.angularVelocity = Vector3.zero;
+        f.velocity = Vector3.zero;
         if (holdingFrisbee)
         {
             //transform frisbee to be at hand
-            rb.position = thisHand.transform.position;
-            rb.rotation = thisHand.transform.rotation;
+            f.position = thisHand.transform.position;
+            f.rotation = thisHand.transform.rotation;
         }
         else
         {
             //lerping position
-            rb.position += (thisHand.transform.position - rb.position) * Time.deltaTime * 10f;
+            f.position += (thisHand.transform.position - f.position) * Time.deltaTime * 10f;
             //slerping rotation
-            Quaternion current = rb.rotation;
+            Quaternion current = f.rotation;
             Quaternion target = thisHand.transform.rotation; 
-            rb.rotation = Quaternion.Slerp(current, target, Time.deltaTime*10);
+            f.rotation = Quaternion.Slerp(current, target, Time.deltaTime*10);
+            if(Vector3.Distance(thisHand.transform.position,thisFrisbee.transform.position) < 0.1)
+            {
+                holdingFrisbee = true;
+            }
         }
     }
 
     void ThrowFrisbee()
     {
+        holdingFrisbee = false;
         //for debugging
         if (debugging)
         {
@@ -170,24 +198,13 @@ public class Thrower : MonoBehaviour {
         }
     }
 
-    void updateBools()
-    {
-        triggerReleased =
-            OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger) ||
-            Input.GetButtonUp("Jump");
-        triggerPressed = triggerReleased ? false :
-            (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) ||
-            Input.GetButton("Jump"));
-        holdingFrisbee = holdingFrisbee ?
-            //if player is holding frisbee and trigger is released
-            !triggerReleased : 
-            //if player not holding frisbee but frisbee is close to hand
-            ((Vector3.Distance(thisHand.transform.position, thisFrisbee.transform.position) < 0.1) ?
-            true : false);
-    }
-
     void log(string s)
     {
-        logger.text = s;
+        logger.text += s + "\n";
+    }
+
+    public bool hasFrisbee()
+    {
+        return holdingFrisbee || triggerPressed;
     }
 }

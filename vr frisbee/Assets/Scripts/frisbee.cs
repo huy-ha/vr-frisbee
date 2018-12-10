@@ -53,6 +53,15 @@ public class Frisbee : MonoBehaviour {
 
     }
 
+    public void Catch()
+    {
+        flying = false;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.angularVelocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
+    }
+
     void handleTilt()
     {
         //calculating force due to tilt
@@ -69,5 +78,10 @@ public class Frisbee : MonoBehaviour {
     {
         //if collide with ground then stop flying
         flying = false;
+    }
+
+    public bool isFlying() //TODO see if I still need this?
+    {
+        return flying;
     }
 }
